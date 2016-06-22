@@ -1,4 +1,4 @@
-package co.persistencia.Camion;
+package co.persistencia.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;

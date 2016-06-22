@@ -18,7 +18,7 @@
     <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.show_sql">true</property>
      <!--Archivo de Mapeo  -->
-   	<mapping resource="co/persistencia/Camion/Camion.hbm.xml" /> 
+   	<mapping resource="co/persistencia/hbm/Camion.hbm.xml" /> 
     
     </session-factory>
  

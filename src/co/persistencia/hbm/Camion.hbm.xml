@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Jun 11, 2016 1:06:40 PM by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="co.persistencia.Camion.Camion" table="camion">
+    <class name="co.persistencia.entity.Camion" table="camion">
         <id name="id" type="int">
             <column name="ID" />
             <generator class="assigned" />

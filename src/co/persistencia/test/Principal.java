@@ -1,4 +1,4 @@
-package co.persistencia;
+package co.persistencia.test;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import co.persistencia.Camion.Camion;
+import co.persistencia.entity.Camion;
 
 public class Principal {
 	
