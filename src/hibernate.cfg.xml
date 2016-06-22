@@ -5,22 +5,20 @@
 <hibernate-configuration>
     <session-factory>
     <!-- Mapeo de datos para establecer connecion @.@. -->
-    <property name="connection.driver_class">com.mysql.jdbc.Driver</property> <!-- Driver BD  y acceso a al carpeta del paquete--> 
-    <property name="connection.url">jdbc:mysql://localhost:3308/trasportesys</property><!-- URL --><!--Nombre de la BD  y el puerto y nombre BD-->
-    <property name="connection.username">trasportesys</property><!-- Usuario y contraseña -->
-    <property name="connection.password">123</property>
+    <!-- Driver BD  y acceso a al carpeta del paquete-->
+    <property name="connection.driver_class">com.mysql.jdbc.Driver</property> 
+    <!-- URL --><!--Nombre de la BD  y el puerto y nombre BD-->
+    <!-- El puerto 3308 funciona, supongo, con PhpMyAdmin -->
+    <!-- Yo me conecto directo con el servidor MySQL, bajo el puerto 3306 -->
+    <property name="connection.url">jdbc:mysql://localhost:3306/transportesys</property>
+    <!-- Usuario y contraseña -->
+    <property name="connection.username">root</property>
+    <property name="connection.password">n0m3l0s3</property>
     <!--Depende del dialecto de BD 1que se trabaje -->
-    <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+    <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.show_sql">true</property>
-    <!--Mapeo por anotaciones  -->
-    <!--<mapping class ="co.persistencia.Camion"/> -->
      <!--Archivo de Mapeo  -->
-   <mapping resource="co.persistencia/Camion.hbm.xml"> 
-    <mapping/>
-    <!--<mapping resource="co.persistencia/Camionero.hbm.xml">-->
-    <!--<mapping/>-->
-    <!--Se deben tener un mapeo  -->
-    
+   	<mapping resource="co/persistencia/Camion/Camion.hbm.xml" /> 
     
     </session-factory>
  

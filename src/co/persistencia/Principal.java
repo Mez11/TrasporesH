@@ -2,14 +2,12 @@ package co.persistencia;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import co.persistencia.Camion.Camion;
-import org.hibernate.service.ServiceRegistry;
 
-import org.hibernate.Query;
+import co.persistencia.Camion.Camion;
 
 public class Principal {
 	
@@ -46,15 +44,14 @@ public class Principal {
 				.list();
 		int i =0;
 		for (Camion camion3 :camiones){
-		i++;
-		
-		System.out.println(i +".ID"+camion3.getId());
-		System.out.println(i+".MATRICULA"+camion3.getMatricula());
+			i++;
+			System.out.println(i +".ID"+camion3.getId());
+			System.out.println(i+".MATRICULA"+camion3.getMatricula());
 		}
+		
 		//Actualizar con HQL
 		//parametros se indica con : para mayor numeros de parametros
-		
-		session.beginTransaction();
+		session.beginTransaction( );
 		String hql  ="UPDATE Camion set matricula =:matricula WHERE id=:id";
 		Query query = session.createQuery(hql);
 		//cLAVE ,VALOR .PARAMETRO,VALOR
@@ -66,8 +63,13 @@ public class Principal {
 		
 		//Actualizar Objetos para parametros especificos
 		session.beginTransaction();
-		Camion camion4 = (Camion) session.get(Camion.class,6);
-		camion4.setMatricula("POTUI");
+		Camion camion4 = (Camion) session.get( Camion.class, 6 );
+		if( camion4 == null ){
+			System.out.println( "El camion con ID 6 no existe." );
+		}
+		else{
+			camion4.setMatricula("POTUI");
+		}
 		session.getTransaction().commit();
 		
 		//ELiminar con obj
@@ -79,10 +81,10 @@ public class Principal {
 		//ELiminar con HQL
 		session.beginTransaction();
 		hql ="DELETE  FROM Camion Where  id =:id";
-		 query = session.createQuery(hql);
-		 query.setParameter("id", 5);
-		 query.executeUpdate();
-		 session.getTransaction().commit();
+		query = session.createQuery(hql);
+		query.setParameter("id", 5);
+		query.executeUpdate();
+		session.getTransaction().commit();
 		 
 		
 		//Cerrar Sessiones
