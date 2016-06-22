@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+    <!-- Mapeo de datos para establecer connecion @.@. -->
+    <property name="connection.driver_class">com.mysql.jdbc.Driver</property> <!-- Driver BD  y acceso a al carpeta del paquete--> 
+    <property name="connection.url">jdbc:mysql://localhost:3308/trasportesys</property><!-- URL --><!--Nombre de la BD  y el puerto y nombre BD-->
+    <property name="connection.username">trasportesys</property><!-- Usuario y contraseña -->
+    <property name="connection.password">123</property>
+    <!--Depende del dialecto de BD 1que se trabaje -->
+    <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+    <property name="hibernate.show_sql">true</property>
+    <!--Mapeo por anotaciones  -->
+    <!--<mapping class ="co.persistencia.Camion"/> -->
+     <!--Archivo de Mapeo  -->
+   <mapping resource="co.persistencia/Camion.hbm.xml"> 
+    <mapping/>
+    <!--<mapping resource="co.persistencia/Camionero.hbm.xml">-->
+    <!--<mapping/>-->
+    <!--Se deben tener un mapeo  -->
+    
+    
+    </session-factory>
+ 
+</hibernate-configuration>
