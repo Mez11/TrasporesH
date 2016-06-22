@@ -24,11 +24,12 @@ public class Principal {
 	
 		//Insertar un registro
 		Camion camion = new Camion("ABC123",2.0,"El tipo de camion",100.5);
+		camion.setMatricula( "abc" );
+		camion.setTipo( "Grande" );
 		
-		
-		//session.beginTransaction();
-		//session.save(camion);
-		//session.getTransaction().commit();
+		session.beginTransaction();
+		session.save(camion);
+		session.getTransaction().commit();
 		//Obtener 
 		//Camion camion2 =(Camion) session.get(Camion.class,1);//Trae el atributo 5 del query
 		
@@ -91,10 +92,5 @@ public class Principal {
 		session.close();
 		sessionFactory.close();
 		
-		}
-	} //end all 
-
-	
-	
-
-
+	}
+} //end all 
