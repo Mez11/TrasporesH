@@ -13,7 +13,7 @@
     <property name="connection.url">jdbc:mysql://localhost:3306/transportesys</property>
     <!-- Usuario y contraseña -->
     <property name="connection.username">root</property>
-    <property name="connection.password">n0m3l0s3</property>
+    <property name="connection.password">interpol11</property>
     <!--Depende del dialecto de BD 1que se trabaje -->
     <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.show_sql">true</property>
