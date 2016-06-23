@@ -10,7 +10,7 @@ USE `transportesys` ;
 -- Table `transportesys`.`camionero`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `transportesys`.`camionero` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `dni` VARCHAR(255) NOT NULL,
   `nombre` VARCHAR(255) NOT NULL,
   `direccion` VARCHAR(50) NOT NULL,
@@ -25,7 +25,7 @@ ENGINE = InnoDB;
 -- Table `transportesys`.`camion`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `transportesys`.`camion` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `matricula` VARCHAR(255) NOT NULL,
   `potencia` DOUBLE NULL,
   `modelo` VARCHAR(255) NOT NULL,
@@ -38,7 +38,7 @@ ENGINE = InnoDB;
 -- Table `transportesys`.`paquete`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `transportesys`.`paquete` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `camionero_id` INT NOT NULL,
   `camion_id` INT NOT NULL,
   `codigo` VARCHAR(255) NOT NULL,
@@ -65,7 +65,7 @@ ENGINE = InnoDB;
 -- Table `transportesys`.`provincia`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `transportesys`.`provincia` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `codigo` VARCHAR(255) NOT NULL,
   `nombre` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`))
@@ -76,7 +76,7 @@ ENGINE = InnoDB;
 -- Table `transportesys`.`camion_camionero`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `transportesys`.`camion_camionero` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `camionero_id` INT NOT NULL,
   `camion_id` INT NOT NULL,
   `fecha` DATE NOT NULL,
