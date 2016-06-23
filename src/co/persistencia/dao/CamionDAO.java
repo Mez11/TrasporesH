@@ -64,6 +64,22 @@ public class CamionDAO {
 		return list;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Camion> getByModelo( double modelo, Session session ){
+		Criteria criteria = null;
+		List<Camion> list = null;
+		try{
+			criteria = session.createCriteria( Camion.class );
+			//Este es el filtro
+			criteria.add( Restrictions.eq( "modelo", modelo ) );
+			list = criteria.list( );
+		} catch (Exception ex ){
+			ex.printStackTrace( );
+		}
+		
+		return list;
+	}
+	
 	//Obtener todos los registros
 	
 	@SuppressWarnings("unchecked")

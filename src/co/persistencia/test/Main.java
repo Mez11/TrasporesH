@@ -188,6 +188,28 @@ public class Main {
 			break;
 		}
 	}
+	
+	private static void optByModelo( Scanner scanner ){
+		double modelo;
+		List<Camion> camiones = null;
+		int opt;
+		System.out.println( "Ingrese el modelo por la cual filtrar" );
+		//obtener la opcion del usuario
+		modelo = scanner.nextDouble( );
+		//obtener la lista
+		camiones = new CamionDAO( ).getByModelo( modelo, session );
+		System.out.println( "Resultado" );
+		printList( camiones );
+		opt = getSubOption( scanner );
+		switch( opt ){
+		case 1:
+			changeList( camiones, scanner);
+			break;
+		case 2:
+			deleteList(camiones, scanner);
+			break;
+		}
+	}
 
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner( System.in );
@@ -214,6 +236,9 @@ public class Main {
 				break;
 			case 5:
 				optByMatricula( scanner );
+				break;
+			case 6:
+				optByModelo( scanner );
 				break;
 			}
 			System.out.println( );
