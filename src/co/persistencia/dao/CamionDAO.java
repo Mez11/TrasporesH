@@ -14,40 +14,46 @@ import org.hibernate.criterion.Restrictions;
 import co.persistencia.entity.Camion;
 
 public class CamionDAO {
-	public void insertar (Camion camion, Session session){
+	
+	/**
+	 * Agrega un registro a la base de datos
+	 * (INSERT INTO... ).
+	 * @param camion Registro a agregar a la base de datos
+	 * @param session 
+	 */
+	public void insert(Camion camion, Session session) {
+		Transaction transaction = null;
 		try {
-			session.beginTransaction();
-			session.save(camion);
-			session.getTransaction().commit();
-		} catch (HibernateException he) {
-			// TODO: handle exception
-			System.err.println("***ERROR AL INSERTAR CAMION****");
-			he.printStackTrace();
+			transaction = session.beginTransaction( );
+			session.save( camion );
+			transaction.commit( );
 		}catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace( );
 		}
-	}	
+	}
 	
+	/**
+	 * Obtiene el camion con ID especificado
+	 * @param id ID coincidente
+	 * @param session
+	 * @return Camion con el ID, o nulo si no se encuentra
+	 */
 	public  Camion  getById( int id, Session session){
-		Camion camion= null;
+		Camion camion = null;
 		try {
-			camion =(Camion) session.get(Camion.class,id);
-			
-			
-		} catch (HibernateException he) {
-			// TODO: handle exception
-			
-			System.err.println("***ERROR AL INSERTAR CAMION****");
-			he.printStackTrace();
-			
+			camion =(Camion) session.get( Camion.class, id );
 		}catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace( );
 		}
 		return camion;
 	}
-
+	
+	/**
+	 * Devuelve todos los camiones con matricula coincidente
+	 * @param matricula
+	 * @param session
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Camion> getByMatricula( String matricula, Session session ){
 		Criteria criteria = null;
@@ -64,6 +70,12 @@ public class CamionDAO {
 		return list;
 	}
 	
+	/**
+	 * Devuelve todos los camiones con modelo coincidente
+	 * @param modelo
+	 * @param session
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Camion> getByModelo( double modelo, Session session ){
 		Criteria criteria = null;
@@ -80,6 +92,12 @@ public class CamionDAO {
 		return list;
 	}
 	
+	/**
+	 * Devuelve todos los camiones con potencia coincidente
+	 * @param potencia
+	 * @param session
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Camion> getByPotencia( double potencia, Session session ){
 		Criteria criteria = null;
@@ -98,6 +116,12 @@ public class CamionDAO {
 	
 	//Obtener todos los registros
 	
+	/**
+	 * Devuelve todos los registros de camiones
+	 * (SELECT * FROM... )
+	 * @param session
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Camion> getAll(  Session session ){
 		Criteria criteria = null;
@@ -106,9 +130,6 @@ public class CamionDAO {
 			criteria = session.createCriteria( Camion.class );
 			criteria.setResultTransformer( Criteria.DISTINCT_ROOT_ENTITY );
 			list = criteria.list( );
-		} catch (HibernateException he) {
-			System.err.println("***ERROR AL INSERTAR CAMION****");
-			he.printStackTrace( );
 		}catch (Exception e) {
 			e.printStackTrace( );
 		}
@@ -157,9 +178,12 @@ public class CamionDAO {
 	}
 	
 	
-	//Query query = session.createQuery(hql);
-//Creacion de Hash Map es decir clave(columna),valor(dato) 
-	
+	/**
+	 * Actualiza en la base de datos los parametros del objeto camion.
+	 * (UPDATE Camion SET ... )
+	 * @param camion Objeto con los nuevos datos a almacenar en la base
+	 * @param session
+	 */
    public void  update( Camion camion, Session session){
 	   Transaction transaction = null;
 	   try {
@@ -226,8 +250,12 @@ public class CamionDAO {
    
 
 
-	
-   public void  delete( Camion camion, Session session ){
+	/**
+	 * Elimina un registro de la base de datos
+	 * @param camion Objeto que contiene el ID del registro a eliminar.
+	 * @param session
+	 */
+   	public void  delete( Camion camion, Session session ){
 	   Transaction transaction = null;
 	   try {
 		   transaction = session.beginTransaction( );

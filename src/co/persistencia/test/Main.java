@@ -13,11 +13,20 @@ public class Main {
 	
 	private static Session session;
 	
+	/**
+	 * Imprime todos los camiones existentes en la base de datos.
+	 */
 	private static void printList( ){
+		//obtener todos los camiones de la bd
 		List<Camion> camiones = new CamionDAO( ).getAll( session );
+		//imprimirlos
 		printList( camiones );
 	}
 	
+	/**
+	 * Imprime todos los camiones de la lista, en formato semi-bonito.
+	 * @param camiones Lista de camiones a impirimir
+	 */
 	private static void printList( List<Camion> camiones ){
 		System.out.println( "ID\tMatricula\tModelo\tTipo\tPotencia" );
 		for( Camion camion : camiones ){
@@ -35,6 +44,9 @@ public class Main {
 		
 	}
 	
+	/**
+	 * Imprime las opciones principales del menu
+	 */
 	private static void printOptions( ){
 		System.out.println( "0) Salir" );
 		System.out.println( "1) Mostrar listado de camiones" );
@@ -46,6 +58,10 @@ public class Main {
 		System.out.println( "7) Seleccionar camiones por potencia" );
 	}
 	
+	/**
+	 * Imprime la información de un camión en específico
+	 * @param camion Camion a imprimir
+	 */
 	private static void printCamionInfo( Camion camion ){
 		System.out.println( "********************" );
 		System.out.println( "Id del camion: " + camion.getId( ) );
@@ -56,6 +72,11 @@ public class Main {
 		System.out.println( "********************" );
 	}
 	
+	/**
+	 * Pregunta al usuario el ID de un camion.
+	 * @param scanner Objeto para recibir datos del teclado
+	 * @return Camion de la base de datos con el ID, o null si no existe.
+	 */
 	private static Camion askForId( Scanner scanner ){
 		int id;
 		System.out.println( "Ingrese el ID del camion deseado" );
@@ -68,6 +89,11 @@ public class Main {
 		return new CamionDAO( ).getById( id, session );
 	}
 	
+	/**
+	 * [Opcion del menu principal]
+	 * Imprime la informacion del camion ingresado por el usuario
+	 * @param scanner
+	 */
 	private static void printCamion( Scanner scanner ){
 		Camion camion = askForId( scanner );
 		
@@ -79,9 +105,11 @@ public class Main {
 		}
 	}
 	
-	
-	
-	
+	/**
+	 * [Opcion del menu principal]
+	 * Actualiza la informacion del camion ingresado por el usuario
+	 * @param scanner
+	 */
 	private static void updateCamion( Scanner scanner ){
 		Camion camion = askForId( scanner );
 		
@@ -110,6 +138,11 @@ public class Main {
 		new CamionDAO( ).update( camion,  session );
 	}
 	
+	/**
+	 * [Opcion del menu principal]
+	 * Borra el camion especificado por el usuario
+	 * @param scanner
+	 */
 	private static void deleteCamion( Scanner scanner ){
 		Camion camion = askForId( scanner );
 		System.out.println( "Eliminando el siguiente camion:" );
@@ -117,6 +150,11 @@ public class Main {
 		new CamionDAO( ).delete(camion, session);
 	}
 	
+	/**
+	 * Imprime el sub-menu para los filtros (opciones 5, 6 y 7)
+	 * @param scanner
+	 * @return opcion elegida
+	 */
 	private static int getSubOption( Scanner scanner ){
 		System.out.println( "Que desea hacer?" );
 		System.out.println( "1) Actualizar los registros" );
@@ -125,6 +163,12 @@ public class Main {
 		return scanner.nextInt( );
 	}
 	
+	/**
+	 * Modifica los datos de los camiones pasados por la lista,
+	 * y los actualiza en la base de datos
+	 * @param camiones camiones a modificar
+	 * @param scanner
+	 */
 	private static void changeList( List<Camion> camiones, Scanner scanner ){
 		CamionDAO dao = null;
 		String matricula = null;
@@ -157,6 +201,11 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * Borra los camiones especificados por la lista
+	 * @param camiones Camiones a eliminar
+	 * @param scanner
+	 */
 	private static void deleteList( List<Camion> camiones, Scanner scanner ){
 		CamionDAO dao = new CamionDAO();
 		for( Camion camion : camiones ){
@@ -165,6 +214,12 @@ public class Main {
 		System.out.println( "Camiones eliminados" );
 	}
 	
+	/**
+	 * [Opcion del menu principal]
+	 * Imprime todos los camiones con matricula coincidente,
+	 * e imprime opciones disponibles
+	 * @param scanner
+	 */
 	private static void optByMatricula( Scanner scanner ){
 		String matricula = null;
 		List<Camion> camiones = null;
@@ -189,6 +244,12 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * [Opcion del menu principal]
+	 * Imprime todos los camiones con modelo coincidente,
+	 * e imprime opciones disponibles
+	 * @param scanner
+	 */
 	private static void optByModelo( Scanner scanner ){
 		double modelo;
 		List<Camion> camiones = null;
@@ -211,6 +272,12 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * [Opcion del menu principal]
+	 * Imprime todos los camiones con potencia coincidente,
+	 * e imprime opciones disponibles
+	 * @param scanner
+	 */
 	private static void optByPotencia( Scanner scanner ){
 		double potencia;
 		List<Camion> camiones = null;
