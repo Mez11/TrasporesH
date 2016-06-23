@@ -1,19 +1,16 @@
 package co.persistencia.dao;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.criteria.CriteriaQuery;
-
-import org.hibernate.Query;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import co.persistencia.entity.Camion;
-import co.persistencia.util.HibernateUtil;
 
 public class CamionDAO {
 	public void insertar (Camion camion, Session session){
@@ -114,26 +111,15 @@ public class CamionDAO {
 	//Query query = session.createQuery(hql);
 //Creacion de Hash Map es decir clave(columna),valor(dato) 
 	
-   public void  actualizar( Camion camion, Session session){
-	 
+   public void  update( Camion camion, Session session){
+	   Transaction transaction = null;
 	   try {
-		   Camion camion2 = (Camion) session.get(Camion.class,camion.getId());
-		   camion2.setMatricula(camion.getMatricula());
-		   camion2.setTipo (camion.getTipo());
-		   camion2.setModelo(camion.getModelo());
-		   
-		   session.beginTransaction();
-		   session.update(camion2);
-		   session.getTransaction().commit();
-		
-	} catch (HibernateException he) {
-		System.err.println("***Error al obtener los registros de los parametros**");
-		he.printStackTrace();
-		// TODO: handle exception
-	}catch (Exception e) {
-		// TODO: handle exception
-	}
-	//return rows_afectados;
+		   transaction = session.beginTransaction( );
+		   session.update( camion );
+		   transaction.commit( );
+	   }catch (Exception e) {
+		   e.printStackTrace();
+	   }
    }
    
    

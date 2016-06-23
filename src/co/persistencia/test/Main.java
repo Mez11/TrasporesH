@@ -1,6 +1,5 @@
 package co.persistencia.test;
 
-import java.io.BufferedInputStream;
 import java.util.List;
 import java.util.Scanner;
 
@@ -44,11 +43,13 @@ public class Main {
 	}
 	
 	private static void printCamionInfo( Camion camion ){
+		System.out.println( "********************" );
 		System.out.println( "Id del camion: " + camion.getId( ) );
 		System.out.println( "Matricula del camion: " + camion.getMatricula( ) );
 		System.out.println( "Modelo del camion: " + camion.getModelo( ) );
 		System.out.println( "Tipo del camion: " + camion.getTipo( ) );
 		System.out.println( "Potencia del camion: " + camion.getPotencia( ) );
+		System.out.println( "********************" );
 	}
 	
 	private static Camion askForId( Scanner scanner ){
@@ -76,8 +77,10 @@ public class Main {
 	
 	
 	
+	
 	private static void updateCamion( Scanner scanner ){
 		Camion camion = askForId( scanner );
+		
 		
 		if( camion == null ){
 			System.out.println( "El camion no existe en la base de datos" );
@@ -85,7 +88,22 @@ public class Main {
 		}
 		
 		printCamionInfo( camion );
-		
+		System.out.println( "Ingrese la nueva información del camión" );
+		//Antes de leer un string, usar "nextLine" para limpiar el buffer
+		//Limpiar el buffer
+		scanner.nextLine( );
+		System.out.println( "Matricula [string]" );
+		camion.setMatricula( scanner.nextLine( ) );
+		System.out.println( "Modelo [double]");
+		camion.setModelo( scanner.nextDouble( ) );
+		System.out.println( "Potencia [double]" );
+		camion.setPotencia( scanner.nextDouble( ) );
+		//Limpiar buffer
+		scanner.nextLine( );
+		System.out.println( "Tipo [string] ");
+		camion.setTipo( scanner.nextLine( ) );
+		printCamionInfo( camion );
+		new CamionDAO( ).update( camion,  session );
 	}
 
 	public static void main(String[] args) {
@@ -105,6 +123,8 @@ public class Main {
 			case 2:
 				printCamion( scanner );
 				break;
+			case 3:
+				updateCamion( scanner );
 			}
 			System.out.println( );
 		}
