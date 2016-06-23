@@ -210,6 +210,28 @@ public class Main {
 			break;
 		}
 	}
+	
+	private static void optByPotencia( Scanner scanner ){
+		double potencia;
+		List<Camion> camiones = null;
+		int opt;
+		System.out.println( "Ingrese la potencia por la cual filtrar" );
+		//obtener la opcion del usuario
+		potencia = scanner.nextDouble( );
+		//obtener la lista
+		camiones = new CamionDAO( ).getByPotencia( potencia, session );
+		System.out.println( "Resultado" );
+		printList( camiones );
+		opt = getSubOption( scanner );
+		switch( opt ){
+		case 1:
+			changeList( camiones, scanner);
+			break;
+		case 2:
+			deleteList(camiones, scanner);
+			break;
+		}
+	}
 
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner( System.in );
@@ -239,6 +261,9 @@ public class Main {
 				break;
 			case 6:
 				optByModelo( scanner );
+				break;
+			case 7:
+				optByPotencia( scanner );
 				break;
 			}
 			System.out.println( );
