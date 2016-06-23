@@ -15,6 +15,10 @@ public class Main {
 	
 	private static void printList( ){
 		List<Camion> camiones = new CamionDAO( ).getAll( session );
+		printList( camiones );
+	}
+	
+	private static void printList( List<Camion> camiones ){
 		System.out.println( "ID\tMatricula\tModelo\tTipo\tPotencia" );
 		for( Camion camion : camiones ){
 			System.out.print( camion.getId( ) );
@@ -112,6 +116,78 @@ public class Main {
 		printCamionInfo( camion );
 		new CamionDAO( ).delete(camion, session);
 	}
+	
+	private static int getSubOption( Scanner scanner ){
+		System.out.println( "Que desea hacer?" );
+		System.out.println( "1) Actualizar los registros" );
+		System.out.println( "2) Eliminar los registros" );
+		System.out.println( "3) Regresar al menú principal" );
+		return scanner.nextInt( );
+	}
+	
+	private static void changeList( List<Camion> camiones, Scanner scanner ){
+		CamionDAO dao = null;
+		String matricula = null;
+		double modelo;
+		double potencia;
+		String tipo = null;
+		
+		System.out.println( "Ingrese la nueva información de los camiones" );
+		//Antes de leer un string, usar "nextLine" para limpiar el buffer
+		//Limpiar el buffer
+		scanner.nextLine( );
+		System.out.println( "Matricula [string]" );
+		matricula =  scanner.nextLine( );
+		System.out.println( "Modelo [double]");
+		modelo = scanner.nextDouble( );
+		System.out.println( "Potencia [double]" );
+		potencia = scanner.nextDouble( );
+		//Limpiar buffer
+		scanner.nextLine( );
+		System.out.println( "Tipo [string] ");
+		tipo = scanner.nextLine( );
+		
+		dao = new CamionDAO( );
+		for( Camion camion : camiones ){
+			camion.setMatricula( matricula );
+			camion.setModelo( modelo );
+			camion.setPotencia( potencia );
+			camion.setTipo( tipo );
+			dao.update( camion, session );
+		}
+	}
+	
+	private static void deleteList( List<Camion> camiones, Scanner scanner ){
+		CamionDAO dao = new CamionDAO();
+		for( Camion camion : camiones ){
+			dao.delete(camion, session);
+		}
+		System.out.println( "Camiones eliminados" );
+	}
+	
+	private static void optByMatricula( Scanner scanner ){
+		String matricula = null;
+		List<Camion> camiones = null;
+		int opt;
+		System.out.println( "Ingrese la matricula por la cual filtrar" );
+		//vaciar el buffer
+		scanner.nextLine( );
+		//obtener la opcion del usuario
+		matricula = scanner.nextLine( );
+		//obtener la lista
+		camiones = new CamionDAO( ).getByMatricula( matricula, session );
+		System.out.println( "Resultado" );
+		printList( camiones );
+		opt = getSubOption( scanner );
+		switch( opt ){
+		case 1:
+			changeList( camiones, scanner);
+			break;
+		case 2:
+			deleteList(camiones, scanner);
+			break;
+		}
+	}
 
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner( System.in );
@@ -135,6 +211,9 @@ public class Main {
 				break;
 			case 4:
 				deleteCamion( scanner );
+				break;
+			case 5:
+				optByMatricula( scanner );
 				break;
 			}
 			System.out.println( );

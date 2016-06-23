@@ -9,6 +9,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import co.persistencia.entity.Camion;
 
@@ -47,6 +48,22 @@ public class CamionDAO {
 		return camion;
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Camion> getByMatricula( String matricula, Session session ){
+		Criteria criteria = null;
+		List<Camion> list = null;
+		try{
+			criteria = session.createCriteria( Camion.class );
+			//Este es el filtro
+			criteria.add( Restrictions.eq( "matricula", matricula ) );
+			list = criteria.list( );
+		} catch (Exception ex ){
+			ex.printStackTrace( );
+		}
+		
+		return list;
+	}
+	
 	//Obtener todos los registros
 	
 	@SuppressWarnings("unchecked")
