@@ -105,6 +105,13 @@ public class Main {
 		printCamionInfo( camion );
 		new CamionDAO( ).update( camion,  session );
 	}
+	
+	private static void deleteCamion( Scanner scanner ){
+		Camion camion = askForId( scanner );
+		System.out.println( "Eliminando el siguiente camion:" );
+		printCamionInfo( camion );
+		new CamionDAO( ).delete(camion, session);
+	}
 
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner( System.in );
@@ -125,6 +132,10 @@ public class Main {
 				break;
 			case 3:
 				updateCamion( scanner );
+				break;
+			case 4:
+				deleteCamion( scanner );
+				break;
 			}
 			System.out.println( );
 		}

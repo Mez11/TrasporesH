@@ -178,32 +178,17 @@ public class CamionDAO {
 
 
 	
-   public void  eliminar(Camion camion, Session session){
+   public void  delete( Camion camion, Session session ){
+	   Transaction transaction = null;
 	   try {
-		Camion camion2 = (Camion) session.get(Camion.class,camion.getId() );
-		
-		session.beginTransaction();
-		session.delete(camion2);
-		session.getTransaction().commit();
-		
-		
-	} catch (HibernateException he) {
-		// TODO: handle exception
-		System.err.println("**ERROR AL ELIMINAR REGISTROS DEL OBJETO**");
-		he.printStackTrace();
-	}
-	   catch (Exception e) {
-		// TODO: handle exception
-	}
-	   //int rows_afectados=0;
-	   //return rows_afectados;
+		   transaction = session.beginTransaction( );
+		   session.delete( camion );
+		   transaction.commit( );
+	   } catch (Exception e) {
+		   e.printStackTrace( );
+	   }
    }
-   
-   public int eliminar(HashMap<Object, Object> parametros){
-	   int rows_afectados=0;
-	   return rows_afectados;
-	  }
-   }
+}
 
 
 
