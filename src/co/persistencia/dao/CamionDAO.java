@@ -5,22 +5,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.criteria.CriteriaQuery;
+
 import org.hibernate.Query;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 import co.persistencia.entity.Camion;
+import co.persistencia.util.HibernateUtil;
 
 public class CamionDAO {
 	public void insertar (Camion camion, Session session){
 		try {
-			
 			session.beginTransaction();
 			session.save(camion);
 			session.getTransaction().commit();
-			
-		
-		
 		} catch (HibernateException he) {
 			// TODO: handle exception
 			System.err.println("***ERROR AL INSERTAR CAMION****");
@@ -31,7 +31,7 @@ public class CamionDAO {
 		}
 	}	
 	
-	public  Camion  obtenerRegistroPorID (int id, Session session){
+	public  Camion  getById( int id, Session session){
 		Camion camion= null;
 		try {
 			camion =(Camion) session.get(Camion.class,id);
@@ -45,30 +45,30 @@ public class CamionDAO {
 			
 		}catch (Exception e) {
 			// TODO: handle exception
-			
+			e.printStackTrace( );
 		}
 		return camion;
 	}
 
 	//Obtener todos los registros
 	
-	public List<Camion> obtenerTodosRegistros(Session session ){
-		List <Camion> camiones= null;
+	@SuppressWarnings("unchecked")
+	public List<Camion> getAll(  Session session ){
+		Criteria criteria = null;
+		List<Camion> list = null;
 		try {
-			camiones=(List <Camion>)session.createCriteria(Camion.class).list();
+			criteria = session.createCriteria( Camion.class );
+			criteria.setResultTransformer( Criteria.DISTINCT_ROOT_ENTITY );
+			list = criteria.list( );
 		} catch (HibernateException he) {
-			// TODO: handle exception
 			System.err.println("***ERROR AL INSERTAR CAMION****");
-			he.printStackTrace();
+			he.printStackTrace( );
 		}catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+			e.printStackTrace( );
 		}
-	return camiones;
 		
-		//return new ArrayList<Camion>(); 
-		//Obtener registros por parametros es decir por clave ,valor
-		}
+		return list;
+	}
 	
 	public List<Camion> obtenerRegistrosParametros(HashMap<String, Object> parametros,Session session){
 		String hql ="SELECT * FROM Camion Where";
