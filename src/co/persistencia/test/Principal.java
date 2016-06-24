@@ -17,7 +17,7 @@ public class Principal {
 		SessionFactory sessionFactory;
 		//Para que utilize el archivo de configuracion
 		Configuration configuration = new Configuration();
-		configuration.configure();
+		configuration.configure( );
 		sessionFactory = configuration.buildSessionFactory();
 		//mETODO save guarda datos para la base de datos
 		Session session = sessionFactory.openSession();
@@ -26,9 +26,11 @@ public class Principal {
 		Camion camion = new Camion("ABC123",2.0,"El tipo de camion",100.5);
 		camion.setMatricula( "abc" );
 		camion.setTipo( "Grande" );
-		
-		session.beginTransaction();
+		//Abrir conexion @.@ PreparentS
+		session.beginTransaction( );
+		//Guarda el registro es decir el obj
 		session.save(camion);
+		//Escribir cambio en la BD
 		session.getTransaction().commit();
 		
 		//Obtener el camion con ID 1
@@ -37,14 +39,22 @@ public class Principal {
 		System.out.println("ID: "+ camion2.getId());
 		System.out.println("MATRICULA: " + camion2.getMatricula());
 		System.out.println("POTENCIA: " + camion2.getPotencia());
+		
+//		camion2.setPotencia( 2.2 );
+//		
+//		session.update( camion2 );
+//		
 		//Para las Llaves anidadas
 		//List <Camion> camiones =(List<Camion>)session.createQuery("FROM camion");
 		
+		
+		@SuppressWarnings("unchecked")
 		List <Camion> camiones =
 				(List<Camion>)session.createCriteria(Camion.class)
 				.setMaxResults(2) //Para obtener los maximos resultados
-				.list();
+				.list( );
 		int i =0;
+		
 		for (Camion camion3 :camiones){
 			i++;
 			System.out.println(i +".ID: "+camion3.getId());
